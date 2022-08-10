@@ -4,7 +4,7 @@
     --primary-color: #FFF;
     --secondary-color: #25cc88;
     --text-color: #8789af;
-    --border-color: #20235b
+    --border-color: #20235b;
 }
  #checkout-page{
     background-color: var(--bg-color);
@@ -132,5 +132,5 @@
     border-radius: 1.5em;
  }
  #save-btn:hover{
-    background-color: var(--border-color);
+    background-color: #198754;
  }

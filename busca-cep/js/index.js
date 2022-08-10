@@ -9,40 +9,13 @@ const formInputs = document.querySelectorAll('[data-input]');
 const closeButton = document.querySelector('#close-message');
 const fadeElement = document.querySelector('#fade');
 
-// validade cep input
-cepInput.addEventListener('keypress',(e) => {
-    const onlyNumbers = /[0-9]/;
-    const key = String.fromCharCode(e.keyCode);
-
-    // allow only numbers
-    if(!onlyNumbers.test(key)){
-        e.preventDefault();
-        return;
-    }
-    
-});
-
-// Get address event
-cepInput.addEventListener('keyup',(e) =>{
-    const inputValue = e.target.value
-
-    // check if we have the correct length
-    if(inputValue.length === 8){
-        getAddress(inputValue);
-    }
-});
-
 // Get customer address from API;
 const getAddress = async (cep) =>{
     toggleLoader();
 
     cepInput.blur(); //tira o cursor
 
-    const apiUrl = `https://viacep.com.br/ws/${cep}/json/`;
-
-    const response = await fetch(apiUrl);
-
-    const data = await response.json();
+    const data = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(response => response.json())
 
     // show error and reset form
     if(data.erro === "true"){
@@ -59,13 +32,13 @@ const getAddress = async (cep) =>{
     if(addressInput.value === ""){
         toggleDisabled();
     }
+    toggleLoader();
 
     addressInput.value = data.logradouro;
     cityInput.value = data.localidade;
     neighborhoodInput.value = data.bairro;
     regionInput.value = data.uf;
 
-    toggleLoader();
 };
 
 // Add or remove disable attribute
@@ -91,9 +64,8 @@ const toggleLoader = () =>{
 
 const toggleMessage = (msg) =>{
     const messageElement = document.querySelector('#message');
-    const messageElementText = document.querySelector('#message p');
-
-    messageElementText.innerText = msg;
+    
+    document.querySelector('#message p').innerText = msg;
 
     fadeElement.classList.toggle('hide');
     messageElement.classList.toggle('hide')
@@ -111,7 +83,7 @@ addressForm.addEventListener('submit', (e) =>{
     setTimeout(() => {
 
         toggleLoader();
-        toggleMessage('Endereço salvo com sucesso!');
+        toggleMessage('Endereço cadastrado!');
         addressForm.reset();
 
         toggleDisabled();
@@ -119,5 +91,24 @@ addressForm.addEventListener('submit', (e) =>{
     }, 1500)
 })
 
+// validade cep input
+cepInput.addEventListener('keypress',(e) => {
+    const onlyNumbers = /[0-9]/;
+    // allow only numbers
+    if(!onlyNumbers.test(e.key)){
+        e.preventDefault();
+        return;
+    }
+    
+});
 
+// Get address event
+cepInput.addEventListener('keyup',(e) =>{
+    const inputValue = e.target.value
+
+    // check if we have the correct length
+    if(inputValue.length === 8){
+        getAddress(inputValue);
+    }
+});
 
