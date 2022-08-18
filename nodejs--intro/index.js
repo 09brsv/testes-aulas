@@ -2,7 +2,7 @@
 // 2 numero do usuario telefone a partir do id
 // 3 obter o endereco a partir do id
 
-//função callback como primeiro parãmetro, ativando a resolução da função, para depois enviar o argumento...
+//função callback retorna uma chamada de volta como primeiro parãmetro, ativando a resolução da função, para depois enviar o argumento...
 //passando nulo para pular o erro e retornar o usuario
 // parãmetro callback sempre na ultima posição e erro sempre na primeira
 
