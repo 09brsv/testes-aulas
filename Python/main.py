@@ -1,18 +1,17 @@
 print('Questão 1:\n')
 n = int(input('Digite aqui seu número: '))
-number = 1
 
-while number <= n:
+for number in range(1, n + 1):
     if number % 2 == 0:
         print(number)
-    number += 1
+    
 
 
 print('\nQuestão 2:\n')
 
 n = int(input('Digite aqui seu número: '))
-number = 1
-while number <= n:
+
+for number in range(1, n + 1):
 
     if number % 3 == 0 and number % 5 == 0:
         print('fizzbuzz')
@@ -24,24 +23,29 @@ while number <= n:
         print('buzz')
     else:
         print(number)
-    number += 1
+    
 
 
 print('\nQuestão 3:\n')
 
 n = int(input('Digite aqui seu número: '))
-num = 0
-for i in range(0, n):
-    i += num
-    print(i)
-    num = i
+anterior = 0
+proximo = 1
+
+for x in range(0, n):
+    print(anterior)
+    proximo += anterior
+    anterior = proximo - anterior
 
 
 print('\nQuestão 4:\n')
 
-s = input('Digite aqui algum palíndromo: ')
+s = str(input('Digite aqui algum palíndromo: '))
 
-if str(s) == ''.join(reversed(s)):
+if s == ''.join(reversed(s)):
     print('palíndromo')
 else:
     print('não foi palíndromo')
+
+
+
