@@ -21,7 +21,6 @@ const bodyInput = document.getElementById('body');
 async function getAllPosts() {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
 
     loadingElement.classList.add('hide');
 
@@ -52,9 +51,9 @@ async function getPost(id) {
     ])
 
     const dataPost = await responsePost.json();
-    console.log(dataPost)
+    
     const dataComment = await responseComments.json();
-    console.log(dataComment)
+    
     loadingElement.classList.add('hide');
     postPage.classList.remove('hide');
 
