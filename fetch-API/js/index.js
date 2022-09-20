@@ -17,6 +17,9 @@ const commentForm = document.getElementById('comment-form');
 const emailInput = document.getElementById('email');
 const bodyInput = document.getElementById('body');
 
+
+const toggleLoader = () => document.getElementById('loading-dois').classList.toggle('hide')
+
 // Get all posts
 async function getAllPosts() {
     const response = await fetch(url);
@@ -53,7 +56,7 @@ async function getPost(id) {
     const dataPost = await responsePost.json();
     
     const dataComment = await responseComments.json();
-    
+
     loadingElement.classList.add('hide');
     postPage.classList.remove('hide');
 
@@ -91,6 +94,7 @@ function createComment(comment){
 //Post a comment
 async function postComment(comment){
 
+    toggleLoader();
     const response = await fetch(`${url}/${postId}/comments`,{
         method: "POST",
         body: comment,
@@ -100,7 +104,22 @@ async function postComment(comment){
     });
 
     const data = await response.json();
-    createComment(data)
+    createComment(data);
+
+    const smallHide = document.getElementById('hide-on')
+    toggleLoader();
+    
+    emailInput.value = '';
+    bodyInput.value = '';
+    smallHide.style.opacity = 1;
+
+    setTimeout(() => {
+
+        smallHide.style.opacity = 0;
+        
+    }, 2000);
+
+    
 
 }
 
@@ -123,3 +142,4 @@ if(!postId) {
         postComment(comment);
     })
 }
+
