@@ -15,19 +15,23 @@
     <div id="post-container"></div>
     <h2>Comentários:</h2>
     <form action="" id="comment-form">
-    <div>
-        <label for="email">Seu e-mail:</label>
-        <input type="email" name="email" id="email" placeholder="Digite seu e-mail" required>
-    </div>
-    
-    
-    <div>
 
-        <label for="body">Seu comentário:</label>
-        <input type="body" name="body" id="body" placeholder="Digite seu comentário" required>
-    </div>
+        <div>
+            <label for="email">Seu e-mail:</label>
+            <input type="email" name="email" id="email" placeholder="Digite seu e-mail" required>
+        </div>
+        
+        
+        <div>
+
+            <label for="body">Seu comentário:</label>
+            <input type="body" name="body" id="body" placeholder="Digite seu comentário" required>
+        </div>
         <input type="submit" value="Enviar">
+        <small id="loading-dois" class="hide">Enviando...</small>
+        <small id="hide-on">Comentário enviado com sucesso ! </small>
     </form>
+
     <div id="comments-container"></div>
     </div>
 </body>
