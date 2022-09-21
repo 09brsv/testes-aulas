@@ -23,7 +23,8 @@ class Database{
 
     async cadastrar(herói){
         const dados = await this.obterDadosArquivo();
-        const id = herói.id <= 2 ? herói.id : Date.now();
+        const idFiltrado = dados
+        const id = herói.id ?? herói.id;
         const heróiComId = {
             id, ...herói
         }
@@ -55,6 +56,27 @@ class Database{
         return await this.escreverArquivo(dados)
     }
 
+    async atualizar(id, modificacoes){
+
+        if (!id) await this.escreverArquivo([])
+        
+        const dados = await this.obterDadosArquivo();
+        const indice = dados.findIndex(item => item.id === parseInt(id))
+        
+        if (indice === -1) throw new Error("O usuário não existe") 
+        
+        const objAtualizado = {
+            ...dados[indice],
+            ...modificacoes
+        }
+
+        dados.splice(indice, 1)
+
+        return await this.escreverArquivo([
+            ...dados,
+            objAtualizado
+        ])
+    }
 }
 
 module.exports = new Database();

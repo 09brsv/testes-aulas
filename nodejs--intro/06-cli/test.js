@@ -10,10 +10,17 @@ const DEFAULT_ITEM_CADASTRAR = {
     id: 1
 }
 
+const DEFAULT_ITEM_ATUALIZAR = {
+    nome: 'lanterna verde',
+    poder: 'energia do anel',
+    id: 2
+}
+
 describe('Suite de manipulação de heróis', () => {
     before(async() => {
         
         await dataBase.cadastrar(DEFAULT_ITEM_CADASTRAR)
+        await dataBase.cadastrar(DEFAULT_ITEM_ATUALIZAR)
     })
     
     it('deve pesquisar um herói, usando arquivos', async () => {
@@ -32,6 +39,22 @@ describe('Suite de manipulação de heróis', () => {
     it('deve remover um item por id', async () => {
         const expected = true;
         const resultado = await dataBase.remover(DEFAULT_ITEM_CADASTRAR.id)
+        deepEqual(resultado, expected)
+    })
+
+    it('deve atualizar um item por id', async () => {
+        const expected = {
+            ...DEFAULT_ITEM_ATUALIZAR,
+            nome: 'batman',
+            poder: 'dinheiro'
+        }
+        const novoHeroi = {
+            nome: 'batman',
+            poder: 'dinheiro'
+        }
+        await dataBase.atualizar(DEFAULT_ITEM_ATUALIZAR.id, novoHeroi)
+        const [resultado] = await dataBase.listar(DEFAULT_ITEM_ATUALIZAR.id)
+        
         deepEqual(resultado, expected)
     })
 })
