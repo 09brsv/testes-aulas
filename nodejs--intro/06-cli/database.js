@@ -8,9 +8,9 @@ const writeFileAsync = promisify(writeFile)
 // const dadosJson = require('./herois.json')
 
 class Database{
-    constructor() {
-        this.NOME_ARQUIVO = 'herois.json';
-    }
+    
+    NOME_ARQUIVO = 'herois.json';
+    
     async obterDadosArquivo(){
         const arquivo = await readFileAsync(this.NOME_ARQUIVO, 'utf8');
         return JSON.parse(arquivo.toString());
@@ -29,7 +29,7 @@ class Database{
         }
 
         const dadosFinal = [
-            ...dados, heróiComId
+            heróiComId,...dados
         ];
         const resultado = await this.escreverArquivo(dadosFinal)
         return resultado
@@ -39,6 +39,20 @@ class Database{
         const dados = await this.obterDadosArquivo();
         const dadosFiltrados = dados.filter(item => (id ? (item.id === id) : true));
         return dadosFiltrados;
+    }
+
+    async remover(id){
+
+        if (!id) await this.escreverArquivo([])
+        
+        const dados = await this.obterDadosArquivo();
+        const indice = dados.findIndex(item => item.id === parseInt(id))
+        
+        if (indice === -1) throw new Error("O usuário não existe")
+
+        dados.splice(indice, 1) 
+        
+        return await this.escreverArquivo(dados)
     }
 
 }
