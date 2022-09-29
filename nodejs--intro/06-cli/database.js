@@ -23,14 +23,13 @@ class Database{
 
     async cadastrar(herói){
         const dados = await this.obterDadosArquivo();
-        const idFiltrado = dados
-        const id = herói.id ?? herói.id;
+        const id = Date.now();
         const heróiComId = {
             id, ...herói
         }
 
         const dadosFinal = [
-            heróiComId,...dados
+            ...dados, heróiComId
         ];
         const resultado = await this.escreverArquivo(dadosFinal)
         return resultado
